@@ -31,6 +31,14 @@
 		cursor: pointer;
 	}
 
+	.back:active {
+		animation: flipin 0.1s ease-in forwards;
+	}
+
+	ul li:not(.back) {
+		animation: flipout 0.1s ease-out;
+	}
+
 	.hearts,
 	.diamonds {
 		color: red;
@@ -39,6 +47,26 @@
 	.spades,
 	.clubs {
 		color: black;
+	}
+
+	@keyframes flipin {
+		from  {
+			transform: rotateY(0);
+		}
+
+		to {
+			transform: rotateY(45deg);
+		}
+	}
+
+	@keyframes flipout {
+		from  {
+			transform: rotateY(90deg);
+		}
+
+		to {
+			transform: rotateY(0);
+		}
 	}
 </style>
 
