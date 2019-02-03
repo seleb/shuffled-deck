@@ -65,7 +65,6 @@ function shuffle() {
 	}) => {
 		const li = document.createElement('li');
 		li.innerText = getSymbol({ value: 'back' });
-		li.title = `???`;
 		li.className= 'back';
 		li.onclick = () => {
 			li.innerText = getSymbol({ suit, value });
