@@ -28,10 +28,15 @@
 
 	.back {
 		cursor: pointer;
+		transition: transform 0.1s ease-in;
+	}
+
+	.back:hover {
+		transform: rotateY(15deg);
 	}
 
 	.back:active {
-		animation: flipin 0.1s ease-in forwards;
+		transform: rotateY(45deg);
 	}
 
 	ul li:not(.back) {
@@ -46,16 +51,6 @@
 	.spades,
 	.clubs {
 		color: black;
-	}
-
-	@keyframes flipin {
-		from  {
-			transform: rotateY(0);
-		}
-
-		to {
-			transform: rotateY(45deg);
-		}
 	}
 
 	@keyframes flipout {
