@@ -64,13 +64,19 @@ function shuffle() {
 		value,
 	}) => {
 		const li = document.createElement('li');
-		li.innerText = getSymbol({ value: 'back' });
-		li.className= 'back';
-		li.onclick = () => {
+		function flipUp() {
 			li.innerText = getSymbol({ suit, value });
 			li.className = suit;
 			li.title = `${names[value] || value}${suit && ` of ${suit}`}`;
-		};
+			li.onclick = flipDown;
+		}
+		function flipDown() {
+			li.innerText = getSymbol({ value: 'back' });
+			li.className= 'back';
+			li.title = '';
+			li.onclick = flipUp;
+		}
+		flipDown();
 		el.appendChild(li);
 	});
 }
