@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/seleb/shuffled-deck/compare/v1.0.0...v1.0.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* build after bumping version ([72cb2f1](https://github.com/seleb/shuffled-deck/commit/72cb2f14a2adca7f3cf438f9f1c03145a4a158fa))
+
 # 1.0.0 (2025-01-24)
 
 
