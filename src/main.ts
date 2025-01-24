@@ -1,3 +1,4 @@
+import storage from 'store2';
 import pkg from '../package.json';
 
 const elPreloader = document.querySelector('#preloader');
@@ -83,21 +84,26 @@ const getReferenceDeck = () => {
 	return ref;
 };
 
-function createCard({ suit, value }: Card) {
+function createCard({ suit, value, flipped = false }: Card & { flipped?: boolean }) {
+	let shouldSave = false;
 	const li = document.createElement('li');
+	li.dataset.card = JSON.stringify({ suit, value });
 	function flipUp() {
 		li.innerHTML = `<span>${getSymbol({ suit, value })}</span>`;
 		li.className = suit;
 		li.title = `${names[value] || value}${suit && ` of ${suit}`}`;
 		li.onclick = flipDown;
+		if (shouldSave) saveDeck();
 	}
 	function flipDown() {
 		li.innerHTML = `<span>${getSymbol({ suit: '', value: 'back' })}</span>`;
 		li.className = 'back';
 		li.title = '';
 		li.onclick = flipUp;
+		if (shouldSave) saveDeck();
 	}
-	flipDown();
+	flipped ? flipUp() : flipDown();
+	shouldSave = true;
 	return li;
 }
 
@@ -117,6 +123,7 @@ const shuffleAll = () => {
 	const fragment = document.createDocumentFragment();
 	deck.forEach(card => fragment.appendChild(createCard(card)));
 	elDeck.replaceChildren(fragment);
+	saveDeck();
 };
 
 const shuffleUnrevealed = () => {
@@ -135,10 +142,36 @@ const shuffleUnrevealed = () => {
 	const fragment = document.createDocumentFragment();
 	deck.forEach(card => fragment.appendChild(createCard(card)));
 	elDeck.appendChild(fragment);
+	saveDeck();
 };
+
+const saveDeck = () => {
+	storage.set(
+		'deck',
+		Array.from(elDeck.querySelectorAll<HTMLLIElement>(':scope > *')).map(i => ({ ...JSON.parse(i.dataset.card || ''), flipped: !!i.title }))
+	);
+};
+
+const loadDeck = (deck: (Card & { flipped: boolean })[]) => {
+	const fragment = document.createDocumentFragment();
+	deck.forEach(card => fragment.appendChild(createCard(card)));
+	elDeck.appendChild(fragment);
+};
+
 elBtnShuffleAll.addEventListener('click', shuffleAll);
 elBtnShuffleUnrevealed.addEventListener('click', shuffleUnrevealed);
-shuffleAll();
+
+elJokers.value = storage.get('numJokers') || '2';
+elJokers.addEventListener('change', () => {
+	storage.set('numJokers', elJokers.value);
+});
+
+if (storage.get('deck')?.length) {
+	loadDeck(storage.get('deck'));
+} else {
+	shuffleAll();
+}
+
 elVersion.textContent = pkg.version;
 
 elPreloader.remove();
