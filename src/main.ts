@@ -43,7 +43,7 @@ function getSymbol({ suit, value }) {
 	return String.fromCodePoint(start + suitOffsets[suit] + parseInt(value, 10));
 }
 
-function shuffle() {
+function getReferenceDeck() {
 	const ref = [];
 	const jokers = parseInt(document.getElementById('jokers').value, 10);
 	new Array(jokers).fill(0).forEach(() =>
@@ -60,38 +60,78 @@ function shuffle() {
 			})
 		)
 	);
+	return ref;
+}
 
-	const deck = [];
-	while (ref.length) {
-		deck.push(ref.splice(Math.floor(Math.random() * ref.length), 1)[0]);
+function createCard({ suit, value }) {
+	const li = document.createElement('li');
+	function flipUp() {
+		li.innerHTML = `<span>${getSymbol({ suit, value })}</span>`;
+		li.className = suit;
+		li.title = `${names[value] || value}${suit && ` of ${suit}`}`;
+		li.onclick = flipDown;
 	}
+	function flipDown() {
+		li.innerHTML = `<span>${getSymbol({ value: 'back' })}</span>`;
+		li.className = 'back';
+		li.title = '';
+		li.onclick = flipUp;
+	}
+	flipDown();
+	return li;
+}
+
+function shuffle(arr) {
+	const ref = arr.slice();
+	const result = [];
+	while (ref.length) {
+		result.push(ref.splice(Math.floor(Math.random() * ref.length), 1)[0]);
+	}
+	return result;
+}
+
+function shuffleAll() {
+	const ref = getReferenceDeck();
+
+	const deck = shuffle(ref);
 	const el = document.getElementById('deck');
 	el.innerHTML = '';
-	deck.forEach(({ suit, value }) => {
-		const li = document.createElement('li');
-		function flipUp() {
-			li.innerHTML = `<span>${getSymbol({ suit, value })}</span>`;
-			li.className = suit;
-			li.title = `${names[value] || value}${suit && ` of ${suit}`}`;
-			li.onclick = flipDown;
-		}
-		function flipDown() {
-			li.innerHTML = `<span>${getSymbol({ value: 'back' })}</span>`;
-			li.className = 'back';
-			li.title = '';
-			li.onclick = flipUp;
-		}
-		flipDown();
-		el.appendChild(li);
+
+	deck.forEach(card => {
+		el.appendChild(createCard(card));
+	});
+}
+
+function shuffleUnrevealed() {
+	const ref = getReferenceDeck();
+
+	const elsFlipped = document.querySelectorAll('#deck > :not(.back)');
+	// remove flipped cards from reference deck
+	elsFlipped.forEach(elCard => {
+		const idx = ref.findIndex(({ suit, value }) => getSymbol({ suit, value }) === elCard.textContent);
+		if (idx >= 0) ref.splice(idx, 1);
+	});
+
+	const deck = shuffle(ref);
+	const el = document.getElementById('deck');
+	el.innerHTML = '';
+
+	// re-insert flipped cards
+	elsFlipped.forEach(i => el.appendChild(i));
+
+	deck.forEach(card => {
+		el.appendChild(createCard(card));
 	});
 }
 
 const elPreloader = document.querySelector('#preloader');
-const elBtnShuffle = document.querySelector('button');
+const elBtnShuffleAll = document.querySelector('#shuffle-all');
+const elBtnShuffleUnrevealed = document.querySelector('#shuffle-unrevealed');
 const elVersion = document.querySelector('#version');
-if (!elPreloader || !elBtnShuffle || !elVersion) throw new Error('could not find elements');
-elBtnShuffle.addEventListener('click', shuffle);
-shuffle();
+if (!elPreloader || !elBtnShuffleAll || !elBtnShuffleUnrevealed || !elVersion) throw new Error('could not find elements');
+elBtnShuffleAll.addEventListener('click', shuffleAll);
+elBtnShuffleUnrevealed.addEventListener('click', shuffleUnrevealed);
+shuffleAll();
 elVersion.textContent = pkg.version;
 
 elPreloader.remove();
