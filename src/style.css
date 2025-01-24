@@ -45,7 +45,7 @@ ul li:not(.back) {
 }
 
 @keyframes flipout {
-  from  {
+  from {
     transform: rotateY(90deg);
   }
 
