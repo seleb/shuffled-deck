@@ -16,7 +16,7 @@ type Suit = (typeof suits)[number] | '';
 type Value = `${(typeof values)[number]}` | 'back' | 'joker';
 type Card = { suit: Suit; value: Value };
 
-const suitOffsets = suits.reduce<Record<Suit, number>>(
+const suitOffsets = ['spades', 'hearts', 'diamonds', 'clubs'].reduce<Record<Suit, number>>(
 	(result, suit, idx) => ({
 		...result,
 		[suit]: idx * 16,
