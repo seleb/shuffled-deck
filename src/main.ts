@@ -122,14 +122,14 @@ const shuffleAll = () => {
 const shuffleUnrevealed = () => {
 	const ref = getReferenceDeck();
 
-	const elsRevealed = document.querySelectorAll('#deck > :not(.back)');
+	const elsRevealed = elDeck.querySelectorAll(':scope > :not(.back)');
 	// remove revealed cards from reference deck
 	elsRevealed.forEach(elCard => {
 		const idx = ref.findIndex(({ suit, value }) => getSymbol({ suit, value }) === elCard.textContent);
 		if (idx >= 0) ref.splice(idx, 1);
 	});
 	// remove unrevealed cards from actual deck
-	document.querySelectorAll('#deck > .back').forEach(i => i.remove());
+	elDeck.querySelectorAll(':scope > .back').forEach(i => i.remove());
 
 	const deck = shuffle(ref);
 	const fragment = document.createDocumentFragment();
