@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>shuffled deck</title>
+  <meta name="author" content="Sean S. LeBlanc" />
+  <meta name="description" content="simple rng for a standard 52-card playing deck" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seleb.github.io/shuffled-deck" />
+  <meta property="og:title" content="shuffled deck" />
+  <meta property="og:description" content="simple rng for a standard 52-card playing deck" />
+
+  <script type="module" crossorigin src="./assets/index-y1TcF6tv.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BLc129Tu.css">
+</head>
+
+<body>
+  <div id="preloader">
+    <p class="preloader_text">Loading...</p>
+    <noscript>you must enable javascript to use this tool.</noscript>
+  </div>
+
+  <main>
+    <label><input type="number" id="jokers" min=0 value=2 /> jokers</label>
+    <button>shuffle</button>
+    <br />
+    <ul id="deck"></ul>
+  </main>
+
+  <footer>
+    <span>shuffled-deck <a href="https://github.com/seleb/shuffled-deck/blob/main/CHANGELOG.md" target="_blank"
+        rel="noopener noreferrer">v<span id="version">?</span></a></span>
+    <span><a href="https://github.com/seleb/shuffled-deck" target="_blank" rel="noopener noreferrer">source</a></span>
+    <span>made by <a href="https://seans.site" target="_blank" rel="noopener noreferrer">sean</a></span>
+  </footer>
+
+</body>
+
+</html>
