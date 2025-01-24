@@ -1,0 +1,55 @@
+
+ul {
+  display: inline-block;
+  list-style: none;
+  word-break: break-all;
+  text-align: center;
+  margin: 30px;
+  font-size: 128px;
+  line-height: 118px;
+  letter-spacing: -5px;
+}
+
+ul li {
+  display: inline-block;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in;
+}
+
+ul li:hover {
+  transform: rotateY(15deg);
+}
+
+ul li:active {
+  transform: rotateY(45deg);
+}
+
+ul li:not(.back) {
+  animation: flipout 0.1s ease-out;
+}
+
+.hearts,
+.diamonds {
+  color: red;
+}
+
+.spades,
+.clubs {
+  color: black;
+}
+
+@keyframes flipout {
+  from  {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0);
+  }
+}
