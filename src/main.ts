@@ -114,28 +114,27 @@ const shuffleAll = () => {
 	const ref = getReferenceDeck();
 
 	const deck = shuffle(ref);
-	elDeck.innerHTML = '';
-
-	deck.forEach(card => elDeck.appendChild(createCard(card)));
+	const fragment = document.createDocumentFragment();
+	deck.forEach(card => fragment.appendChild(createCard(card)));
+	elDeck.appendChild(fragment);
 };
 
 const shuffleUnrevealed = () => {
 	const ref = getReferenceDeck();
 
-	const elsFlipped = document.querySelectorAll('#deck > :not(.back)');
-	// remove flipped cards from reference deck
-	elsFlipped.forEach(elCard => {
+	const elsRevealed = document.querySelectorAll('#deck > :not(.back)');
+	// remove revealed cards from reference deck
+	elsRevealed.forEach(elCard => {
 		const idx = ref.findIndex(({ suit, value }) => getSymbol({ suit, value }) === elCard.textContent);
 		if (idx >= 0) ref.splice(idx, 1);
 	});
+	// remove unrevealed cards from actual deck
+	document.querySelectorAll('#deck > .back').forEach(i => i.remove());
 
 	const deck = shuffle(ref);
-	elDeck.innerHTML = '';
-
-	// re-insert flipped cards
-	elsFlipped.forEach(i => elDeck.appendChild(i));
-
-	deck.forEach(card => elDeck.appendChild(createCard(card)));
+	const fragment = document.createDocumentFragment();
+	deck.forEach(card => fragment.appendChild(createCard(card)));
+	elDeck.appendChild(fragment);
 };
 elBtnShuffleAll.addEventListener('click', shuffleAll);
 elBtnShuffleUnrevealed.addEventListener('click', shuffleUnrevealed);
