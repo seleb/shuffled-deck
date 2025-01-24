@@ -10,7 +10,7 @@ on:
 
 env:
   DISCORD_USERNAME: ${{ github.repository }}
-  DISCORD_AVATAR: https://raw.githubusercontent.com/${{ github.repository }}/main/src/assets/icon.png
+  DISCORD_AVATAR: https://raw.githubusercontent.com/${{ github.repository }}/refs/heads/gh-pages/img.png
 
 jobs:
   notify-start:
