@@ -8,7 +8,7 @@ const elJokers = document.querySelector<HTMLInputElement>('#jokers');
 const elDeck = document.querySelector('#deck');
 if (!elPreloader || !elBtnShuffleAll || !elBtnShuffleUnrevealed || !elJokers || !elDeck || !elVersion) throw new Error('could not find elements');
 
-const suits = ['spades', 'hearts', 'diamonds', 'clubs'] as const;
+const suits = ['spades', 'hearts', 'clubs', 'diamonds'] as const;
 const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14] as const;
 
 type Suit = (typeof suits)[number] | '';
@@ -66,9 +66,9 @@ function getSymbol({ suit, value }: Card) {
 const getReferenceDeck = () => {
 	const ref: Card[] = [];
 	const jokers = parseInt(elJokers.value, 10);
-	new Array(jokers).fill(0).forEach(() =>
+	new Array(jokers).fill(0).forEach((_, idx) =>
 		ref.push({
-			suit: '',
+			suit: suits[idx % suits.length],
 			value: 'joker',
 		})
 	);
