@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/seleb/shuffled-deck/compare/v1.1.0...v1.1.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* incorrect suit offsets ([6ff4b81](https://github.com/seleb/shuffled-deck/commit/6ff4b81f0cec3e5c9b7a9e5d8d05f036afee4ab9))
+
 # [1.1.0](https://github.com/seleb/shuffled-deck/compare/v1.0.2...v1.1.0) (2025-01-24)
 
 
