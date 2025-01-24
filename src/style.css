@@ -1,3 +1,5 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+
 :root {
   color-scheme: light;
   --bg: #fff;
@@ -19,12 +21,6 @@ div#preloader {
   flex-direction: column;
   background-color: var(--bg);
   z-index: 100;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
 }
 
 body {
