@@ -1,17 +1,48 @@
 {
-  "private": true,
-  "name": "shuffled-deck",
-  "author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
-  "license": "MIT",
-  "type": "module",
-  "version": "0.0.0",
-  "scripts": {
-    "start": "vite --port 80",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "^5.6.2",
-    "vite": "^6.0.5"
-  }
+	"private": true,
+	"name": "shuffled-deck",
+	"version": "0.0.0",
+	"description": "simple rng for a standard 52-card playing deck",
+	"author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/seleb/gimme-font.git"
+	},
+	"release": {
+		"plugins": [
+			"@semantic-release/commit-analyzer",
+			"@semantic-release/release-notes-generator",
+			"@semantic-release/changelog",
+			"@semantic-release/npm",
+			[
+				"@semantic-release/github",
+				{
+					"successComment": false,
+					"failTitle": false
+				}
+			],
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
+						"CHANGELOG.md",
+						"package.json",
+						"package-lock.json"
+					]
+				}
+			]
+		]
+	},
+	"scripts": {
+		"start": "vite --port 80",
+		"typecheck": "tsc",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"typescript": "^5.6.2",
+		"vite": "^6.0.5"
+	}
 }
