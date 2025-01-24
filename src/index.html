@@ -23,10 +23,20 @@
     <noscript>you must enable javascript to use this tool.</noscript>
   </div>
 
-  <label><input type="number" id="jokers" min=0 value=2 /> jokers</label>
-  <button>shuffle</button>
-  <br />
-  <ul id="deck"></ul>
+  <main>
+    <label><input type="number" id="jokers" min=0 value=2 /> jokers</label>
+    <button>shuffle</button>
+    <br />
+    <ul id="deck"></ul>
+  </main>
+
+  <footer>
+    <span>shuffled-deck <a href="https://github.com/seleb/shuffled-deck/blob/main/CHANGELOG.md" target="_blank"
+        rel="noopener noreferrer">v<span id="version">?</span></a></span>
+    <span><a href="https://github.com/seleb/shuffled-deck" target="_blank" rel="noopener noreferrer">source</a></span>
+    <span>made by <a href="https://seans.site" target="_blank" rel="noopener noreferrer">sean</a></span>
+  </footer>
+
   <script type="module" src="./main.ts"></script>
 </body>
 

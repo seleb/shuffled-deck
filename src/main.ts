@@ -1,3 +1,5 @@
+import pkg from '../package.json';
+
 const suits = ['spades', 'hearts', 'diamonds', 'clubs'];
 const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14];
 
@@ -86,8 +88,10 @@ function shuffle() {
 
 const elPreloader = document.querySelector('#preloader');
 const elBtnShuffle = document.querySelector('button');
-if (!elPreloader || !elBtnShuffle) throw new Error('could not find elements');
+const elVersion = document.querySelector('#version');
+if (!elPreloader || !elBtnShuffle || !elVersion) throw new Error('could not find elements');
 elBtnShuffle.addEventListener('click', shuffle);
 shuffle();
+elVersion.textContent = pkg.version;
 
 elPreloader.remove();
