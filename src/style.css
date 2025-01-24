@@ -7,6 +7,19 @@
   color: var(--fg);
 }
 
+div#preloader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  background-color: var(--bg);
+  z-index: 100;
+}
 
 ul {
   display: inline-block;

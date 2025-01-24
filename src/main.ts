@@ -84,7 +84,10 @@ function shuffle() {
 	});
 }
 
+const elPreloader = document.querySelector('#preloader');
 const elBtnShuffle = document.querySelector('button');
-if (!elBtnShuffle) throw new Error('could not find elements');
+if (!elPreloader || !elBtnShuffle) throw new Error('could not find elements');
 elBtnShuffle.addEventListener('click', shuffle);
 shuffle();
+
+elPreloader.remove();
