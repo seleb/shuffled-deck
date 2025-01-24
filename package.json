@@ -8,7 +8,7 @@
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/seleb/gimme-font.git"
+		"url": "git+https://github.com/seleb/shuffled-deck.git"
 	},
 	"release": {
 		"plugins": [
