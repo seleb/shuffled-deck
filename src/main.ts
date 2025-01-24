@@ -1,14 +1,32 @@
 import pkg from '../package.json';
 
-const suits = ['spades', 'hearts', 'diamonds', 'clubs'];
-const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14];
+const elPreloader = document.querySelector('#preloader');
+const elBtnShuffleAll = document.querySelector('#shuffle-all');
+const elBtnShuffleUnrevealed = document.querySelector('#shuffle-unrevealed');
+const elVersion = document.querySelector('#version');
+const elJokers = document.querySelector<HTMLInputElement>('#jokers');
+const elDeck = document.querySelector('#deck');
+if (!elPreloader || !elBtnShuffleAll || !elBtnShuffleUnrevealed || !elJokers || !elDeck || !elVersion) throw new Error('could not find elements');
 
-const suitOffsets = ['spades', 'hearts', 'diamonds', 'clubs'].reduce(
+const suits = ['spades', 'hearts', 'diamonds', 'clubs'] as const;
+const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14] as const;
+
+type Suit = (typeof suits)[number] | '';
+type Value = `${(typeof values)[number]}` | 'back' | 'joker';
+type Card = { suit: Suit; value: Value };
+
+const suitOffsets = suits.reduce<Record<Suit, number>>(
 	(result, suit, idx) => ({
 		...result,
 		[suit]: idx * 16,
 	}),
-	{}
+	{
+		'': 0,
+		spades: 0,
+		hearts: 0,
+		diamonds: 0,
+		clubs: 0,
+	}
 );
 const names = {
 	1: 'ace',
@@ -25,27 +43,29 @@ const names = {
 	12: 'knight',
 	13: 'queen',
 	14: 'king',
+	back: 'back',
+	joker: 'joker',
 };
 
 // symbol is
 // 'suit-value'
 // 'back'
 // 'joker'
-function getSymbol({ suit, value }) {
+function getSymbol({ suit, value }: Card) {
 	const unique = {
 		back: 0x1f0a0,
 		joker: 0x1f0bf,
 	};
-	if (unique[value]) {
+	if (value === 'back' || value === 'joker') {
 		return String.fromCodePoint(unique[value]);
 	}
 	const start = unique.back;
 	return String.fromCodePoint(start + suitOffsets[suit] + parseInt(value, 10));
 }
 
-function getReferenceDeck() {
-	const ref = [];
-	const jokers = parseInt(document.getElementById('jokers').value, 10);
+const getReferenceDeck = () => {
+	const ref: Card[] = [];
+	const jokers = parseInt(elJokers.value, 10);
 	new Array(jokers).fill(0).forEach(() =>
 		ref.push({
 			suit: '',
@@ -56,14 +76,14 @@ function getReferenceDeck() {
 		values.forEach(value =>
 			ref.push({
 				suit,
-				value,
+				value: value.toString(10) as `${typeof value}`,
 			})
 		)
 	);
 	return ref;
-}
+};
 
-function createCard({ suit, value }) {
+function createCard({ suit, value }: Card) {
 	const li = document.createElement('li');
 	function flipUp() {
 		li.innerHTML = `<span>${getSymbol({ suit, value })}</span>`;
@@ -72,7 +92,7 @@ function createCard({ suit, value }) {
 		li.onclick = flipDown;
 	}
 	function flipDown() {
-		li.innerHTML = `<span>${getSymbol({ value: 'back' })}</span>`;
+		li.innerHTML = `<span>${getSymbol({ suit: '', value: 'back' })}</span>`;
 		li.className = 'back';
 		li.title = '';
 		li.onclick = flipUp;
@@ -81,7 +101,7 @@ function createCard({ suit, value }) {
 	return li;
 }
 
-function shuffle(arr) {
+function shuffle<T>(arr: readonly T[]) {
 	const ref = arr.slice();
 	const result = [];
 	while (ref.length) {
@@ -90,19 +110,16 @@ function shuffle(arr) {
 	return result;
 }
 
-function shuffleAll() {
+const shuffleAll = () => {
 	const ref = getReferenceDeck();
 
 	const deck = shuffle(ref);
-	const el = document.getElementById('deck');
-	el.innerHTML = '';
+	elDeck.innerHTML = '';
 
-	deck.forEach(card => {
-		el.appendChild(createCard(card));
-	});
-}
+	deck.forEach(card => elDeck.appendChild(createCard(card)));
+};
 
-function shuffleUnrevealed() {
+const shuffleUnrevealed = () => {
 	const ref = getReferenceDeck();
 
 	const elsFlipped = document.querySelectorAll('#deck > :not(.back)');
@@ -113,22 +130,13 @@ function shuffleUnrevealed() {
 	});
 
 	const deck = shuffle(ref);
-	const el = document.getElementById('deck');
-	el.innerHTML = '';
+	elDeck.innerHTML = '';
 
 	// re-insert flipped cards
-	elsFlipped.forEach(i => el.appendChild(i));
+	elsFlipped.forEach(i => elDeck.appendChild(i));
 
-	deck.forEach(card => {
-		el.appendChild(createCard(card));
-	});
-}
-
-const elPreloader = document.querySelector('#preloader');
-const elBtnShuffleAll = document.querySelector('#shuffle-all');
-const elBtnShuffleUnrevealed = document.querySelector('#shuffle-unrevealed');
-const elVersion = document.querySelector('#version');
-if (!elPreloader || !elBtnShuffleAll || !elBtnShuffleUnrevealed || !elVersion) throw new Error('could not find elements');
+	deck.forEach(card => elDeck.appendChild(createCard(card)));
+};
 elBtnShuffleAll.addEventListener('click', shuffleAll);
 elBtnShuffleUnrevealed.addEventListener('click', shuffleUnrevealed);
 shuffleAll();
