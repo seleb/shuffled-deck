@@ -36,6 +36,7 @@
 		]
 	},
 	"scripts": {
+		"postversion": "npm run build",
 		"start": "vite --port 80",
 		"typecheck": "tsc",
 		"build": "vite build",
