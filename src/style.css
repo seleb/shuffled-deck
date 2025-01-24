@@ -4,6 +4,8 @@
   color-scheme: light;
   --bg: #fff;
   --fg: #000;
+  --suit-r: red;
+  --suit-b: black;
 
   background-color: var(--bg);
   color: var(--fg);
@@ -71,12 +73,12 @@ ul li:not(.back) {
 
 .hearts,
 .diamonds {
-  color: red;
+  color: var(--suit-r);
 }
 
 .spades,
 .clubs {
-  color: black;
+  color: var(--suit-b);
 }
 
 footer {
