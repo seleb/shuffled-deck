@@ -58,18 +58,18 @@ ul li {
   user-select: none;
   cursor: pointer;
   transition: transform 0.1s ease-in;
-}
 
-ul li:hover {
-  transform: rotateY(15deg);
-}
+  &:hover {
+    transform: rotateY(15deg);
+  }
 
-ul li:active {
-  transform: rotateY(45deg);
-}
+  &:active {
+    transform: rotateY(45deg);
+  }
 
-ul li:not(.back) {
-  animation: flipout 0.1s ease-out;
+  &:not(.back) {
+    animation: flipout 0.1s ease-out;
+  }
 }
 
 .hearts,
