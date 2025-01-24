@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/seleb/shuffled-deck/compare/v1.0.1...v1.0.2) (2025-01-24)
+
+
+### Bug Fixes
+
+* build output directory ([bc11f8f](https://github.com/seleb/shuffled-deck/commit/bc11f8fc50e968d39bdf73e9a5fcba6659193996))
+
 ## [1.0.1](https://github.com/seleb/shuffled-deck/compare/v1.0.0...v1.0.1) (2025-01-24)
 
 
