@@ -51,8 +51,8 @@ ul {
 }
 
 ul li {
-  margin: 0.05em;
-  display: inline-block;
+  margin-inline: 0.05em;
+  display: inline-flex;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -60,15 +60,28 @@ ul li {
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
-  transition: transform 0.1s ease-in;
+  transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  align-items: center;
+  justify-content: center;
+  width: 4.9rem;
+  height: 8.3rem;
 
-  &:hover {
-    transform: rotateY(15deg);
+  >span {
+    pointer-events: none;
+    display: inline-block;
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  &:active {
-    transform: rotateY(45deg);
+  &:hover>span {
+    transform: translateY(-0.5rem);
+  }
+
+  &:active>span {
+    transform: translateY(-0.5rem) rotateY(45deg);
+  }
+
   &.back {
+    animation: flipout2 0.1s ease-out;
     color: var(--back);
   }
 
@@ -108,6 +121,16 @@ footer {
 }
 
 @keyframes flipout {
+  from {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0);
+  }
+}
+
+@keyframes flipout2 {
   from {
     transform: rotateY(90deg);
   }

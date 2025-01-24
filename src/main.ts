@@ -70,13 +70,13 @@ function shuffle() {
 	deck.forEach(({ suit, value }) => {
 		const li = document.createElement('li');
 		function flipUp() {
-			li.innerText = getSymbol({ suit, value });
+			li.innerHTML = `<span>${getSymbol({ suit, value })}</span>`;
 			li.className = suit;
 			li.title = `${names[value] || value}${suit && ` of ${suit}`}`;
 			li.onclick = flipDown;
 		}
 		function flipDown() {
-			li.innerText = getSymbol({ value: 'back' });
+			li.innerHTML = `<span>${getSymbol({ value: 'back' })}</span>`;
 			li.className = 'back';
 			li.title = '';
 			li.onclick = flipUp;
