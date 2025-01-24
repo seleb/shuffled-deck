@@ -116,7 +116,7 @@ const shuffleAll = () => {
 	const deck = shuffle(ref);
 	const fragment = document.createDocumentFragment();
 	deck.forEach(card => fragment.appendChild(createCard(card)));
-	elDeck.appendChild(fragment);
+	elDeck.replaceChildren(fragment);
 };
 
 const shuffleUnrevealed = () => {
