@@ -13,9 +13,14 @@
   <meta property="og:url" content="https://seleb.github.io/shuffled-deck" />
   <meta property="og:title" content="shuffled deck" />
   <meta property="og:description" content="simple rng for a standard 52-card playing deck" />
+  <meta property="og:image:url"
+    content="https://raw.githubusercontent.com/seleb/shuffled-deck/refs/heads/gh-pages/img.png">
+  <meta property="og:image:alt" content="A joker among many face-down cards">
 
-  <script type="module" crossorigin src="./assets/index-y1TcF6tv.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BLc129Tu.css">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="module" crossorigin src="./assets/index-Bk9Msrin.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DAqVo4En.css">
 </head>
 
 <body>
@@ -26,8 +31,8 @@
 
   <main>
     <label><input type="number" id="jokers" min=0 value=2 /> jokers</label>
-    <button>shuffle</button>
-    <br />
+    <button id="shuffle-all">shuffle all</button>
+    <button id="shuffle-unrevealed">shuffle unrevealed</button>
     <ul id="deck"></ul>
   </main>
 
